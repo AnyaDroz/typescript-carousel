@@ -62,36 +62,38 @@ const CarouselWindow = () => {
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const carouselRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-     
-        carouselRef.current!.scrollLeft =
-          (carouselRef.current!.lastChild!.getBoundingClientRect().width + 24) * 20;
-      }, []);
+    // useEffect(() => {
+    //  if (carouselRef.current && carouselRef.current.lastChild) {
+    //     carouselRef.current.scrollLeft =
+    //       (carouselRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
+    //   }}, []);
 
       function getPosition() {
-        const position: number = carouselRef.current!.scrollLeft;
+        if (carouselRef.current) {
+        const position: number = carouselRef.current.scrollLeft;
         setScrollPosition(position);
-      }
+      }}
 
-      useEffect(() => {
-        const tileWidth: number =
-          carouselRef.current!.lastChild!.getBoundingClientRect().width + 24;
-        const carouselWidth: number =
-          (carouselRef.current!.lastChild!.getBoundingClientRect().width + 24) *
-          copyArray.length;
-    
-        if (
-          scrollPosition >= copyArray.length * 3 * tileWidth &&
-          scrollPosition % tileWidth === 0
-        ) {
-          carouselRef.current!.scrollLeft = scrollPosition - carouselWidth;
-        } else if (
-          scrollPosition <= copyArray.length * tileWidth &&
-          scrollPosition % tileWidth === 0
-        ) {
-          carouselRef.current!.scrollLeft = scrollPosition + carouselWidth;
-        }
-      }, [scrollPosition]);
+      // useEffect(() => {
+      //   if (carouselRef.current && carouselRef.current.lastChild ) {
+      //   const tileWidth: number =
+      //     carouselRef.current.lastChild.getBoundingClientRect().width + 24;
+      //   const carouselWidth: number =
+      //     (carouselRef.current.lastChild.getBoundingClientRect().width + 24) *
+      //     copyArray.length;
+        
+      //   if (
+      //     scrollPosition >= copyArray.length * 3 * tileWidth &&
+      //     scrollPosition % tileWidth === 0
+      //   ) {
+      //     carouselRef.current.scrollLeft = scrollPosition - carouselWidth;
+      //   } else if (
+      //     scrollPosition <= copyArray.length * tileWidth &&
+      //     scrollPosition % tileWidth === 0
+      //   ) {
+      //     carouselRef.current.scrollLeft = scrollPosition + carouselWidth;
+      //   }
+      // }}, [scrollPosition]);
 
   return (
         <StyledCarouselWindow ref={carouselRef} 
