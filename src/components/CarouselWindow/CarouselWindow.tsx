@@ -1,4 +1,4 @@
-
+import CarouselTile from "../CarouselTile/CarouselTile";
 import { StyledCarouselWindow } from "./CarouselWindow.styles";
 import Idlerocks from "../../images/idlerocks.png"
 import Oakleycourt from "../../images/Oakleycourt.png";
