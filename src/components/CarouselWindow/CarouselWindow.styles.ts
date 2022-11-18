@@ -11,5 +11,7 @@ export const StyledCarouselWindow = styled.div`
     color: red;
     height: 400px;
     width: 200px;
+    background-color: aliceblue;
 `
 
+export {};

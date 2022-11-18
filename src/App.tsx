@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import CarouselWindow from './components/CarouselWindow';
+import CarouselWindow from "./components/CarouselWindow/CarouselWindow"
+
 
 function App() {
   return (

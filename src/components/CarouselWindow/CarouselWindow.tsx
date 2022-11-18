@@ -1,10 +1,10 @@
-import React, {FC} from "react";
+
 import { StyledCarouselWindow } from "./CarouselWindow.styles";
-import Idlerocks from "../images/idlerocks.png";
-import Oakleycourt from "../images/Oakleycourt.png";
-import Cottage from "../images/Cottage.png";
-import Beachfront from "../images/beachfront.png";
-import Treehouse from "../images/treehouse.png";
+import Idlerocks from "../../images/idlerocks.png"
+import Oakleycourt from "../../images/Oakleycourt.png";
+import Cottage from "../../images/Cottage.png";
+import Beachfront from "../../images/beachfront.png";
+import Treehouse from "../../images/treehouse.png";
 import { useRef, useEffect, useState } from "react";
 
 const info: Array<{label: string, title: string, eyebrowOne: string, eyebrowTwo:string, location: string, image: string}> = [
@@ -56,9 +56,6 @@ for (let i = 0; i < 4; i++) {
   info.push(...info);
 }
 
-type CarouselWindowProps {
-    tileContent: Array<{label: string, title: string, eyebrowOne: string, eyebrowTwo:string, location: string, image: string}>,
-  }
 
 const CarouselWindow = () => {
     const [tileContent, setTileContent] = useState(info);
@@ -66,38 +63,40 @@ const CarouselWindow = () => {
     const carouselRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        carouselRef.current.scrollLeft =
-          (carouselRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
+     
+        carouselRef.current!.scrollLeft =
+          (carouselRef.current!.lastChild!.getBoundingClientRect().width + 24) * 20;
       }, []);
 
       function getPosition() {
-        const position: number = carouselRef.current.scrollLeft;
+        const position: number = carouselRef.current!.scrollLeft;
         setScrollPosition(position);
       }
 
       useEffect(() => {
         const tileWidth: number =
-          carouselRef.current.lastChild.getBoundingClientRect().width + 24;
-        const carouselWidth =
-          (carouselRef.current.lastChild.getBoundingClientRect().width + 24) *
+          carouselRef.current!.lastChild!.getBoundingClientRect().width + 24;
+        const carouselWidth: number =
+          (carouselRef.current!.lastChild!.getBoundingClientRect().width + 24) *
           copyArray.length;
     
         if (
           scrollPosition >= copyArray.length * 3 * tileWidth &&
           scrollPosition % tileWidth === 0
         ) {
-          carouselRef.current.scrollLeft = scrollPosition - carouselWidth;
+          carouselRef.current!.scrollLeft = scrollPosition - carouselWidth;
         } else if (
           scrollPosition <= copyArray.length * tileWidth &&
           scrollPosition % tileWidth === 0
         ) {
-          carouselRef.current.scrollLeft = scrollPosition + carouselWidth;
+          carouselRef.current!.scrollLeft = scrollPosition + carouselWidth;
         }
       }, [scrollPosition]);
 
   return (
-        <StyledCarouselWindow ref={carouselRef} onScroll={getPosition}>
-            {/* {tileContent.map((item, index) => {
+        <StyledCarouselWindow ref={carouselRef} 
+        onScroll={getPosition}>
+            {tileContent.map((item, index) => {
         return (
           <CarouselTile
             key={index}
@@ -106,7 +105,7 @@ const CarouselWindow = () => {
             scrollPosition={scrollPosition}
           />
         );
-      })} */}
+      })}
         </StyledCarouselWindow>
   )
 }
