@@ -1,24 +1,9 @@
 import styled from "styled-components";
-// import {Squiggle} from "./CarouselTile/squiggle.svg"
 
 
-type StyledTileContainerProps = {
-  active: boolean;
-};
-// type StyledSquiggleProps = {
-//   src: string;
-// };
-
-// export const StyledSquiggle = styled.img<StyledSquiggleProps>`
-//   width: 100%;
-// `;
-
-// StyledSquiggle.defaultProps = {
-//   src: Squiggle,
-// };
 
 
-export const StyledTileContainer = styled.div<StyledTileContainerProps>`
+export const StyledTileContainer = styled.div`
   position: relative;
   color: #0e1249;
   height: 472px;
@@ -32,10 +17,10 @@ export const StyledTileContainer = styled.div<StyledTileContainerProps>`
 
 export const StyledEyebrowContainer = styled.div`
   position: absolute;
-  left: -24px;
-  top: 42px;
+  left: -30px;
+  top: 64px;
   display: flex;
-  font-family: "MatterLight";
+  font-family: "Matter-Medium";
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 0.5px;
@@ -48,55 +33,46 @@ export const StyledLabelContainer = styled.div`
   position: absolute;
   right: 16px;
   display: flex;
-  font-family: "Matter";
+  font-family: "Matter-Medium";
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: 0.5px;
   flex-direction: row;
+  top: 16px;
   gap: 4px;
 `;
 
 
+type StyledImageContainerProps= {
+  active: boolean;
+};
 
-
-export const StyledLabelName = styled.div``;
-
-export const StyledImageContainer = styled.div`
-position: absolute;
-        top: 50%;
-        left: 50%;
-        height: 100%;
-        width: 100%;
-        margin-top: -250px;
-        margin-left: -200px;
-        clip-path: ellipse(162px 162px);
-        transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
-
-`;
-
-
-// &.active {
-//   clip-path: ellipse(400px 400px);
-//   margin-top: -237px;
-//   transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-// export const StyledImage = styled.div`
-//   height: 474px;
-//   width: 400px;
-//   object-fit: cover;
-//   object-position: 50% 50%;
-//   position: relative;
-// `;
-
-export const StyledTitleContainer = styled.div`
+export const StyledImageContainer = styled.div<StyledImageContainerProps>(({active})=>`
   position: absolute;
-  bottom: 12px;
-  padding-left: 16px;
+  top: 50%;
+  left: 50%;
+  height: 100%;
+  width: 100%;
+  margin-top: ${ active ? "-237px" : "-250px"};
+  margin-left: -200px;
+  clip-path: ${ active ? "ellipse(400px 400px)" : "ellipse(162px 162px)"};
+  transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+`);
+
+type StyledTitleContainerProps = {
+  active: boolean
+}
+
+export const StyledTitleContainer = styled.div<StyledTitleContainerProps>(({active})=>`
+  position: absolute;
+  bottom: ${ active ? "-90px" : "12px"};
+  padding-left: ${ active ? "0px" : "16px"};
   transition: all 3s cubic-bezier(0.075, 0.82, 0.165, 1);
-`;
+`);
 
 export const StyledHeader = styled.div`
   position: relative;
-  font-family: "Matter";
+  font-family: "Matter-SemiBold";
   text-transform: uppercase;
   font-size: 24px;
   letter-spacing: 0.5px;
@@ -109,7 +85,7 @@ export const StyledSubHeader = styled.div`
   transform: translate(0, -4px);
   color: #cd4614;
   position: relative;
-  font-family: "Matter";
+  font-family: "Matter-SemiBold";
   text-transform: uppercase;
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -120,23 +96,14 @@ export const StyledSubHeader = styled.div`
 
 
 export const StyledImage = styled.img`
- 
+  height: 474px;
+  width: 400px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  position: relative;
 `;
 
-// .tile-container {
-//     &.active {
-//         .tile-container__title {
-//             bottom: -90px;
-//             padding-left: 0px;
-//             transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//         }
 
-//         .tile-container__image-container {
-//             clip-path: ellipse(400px 400px);
-//             margin-top: -237px;
-//             transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//         }
-//     }
-// }
+
 
 

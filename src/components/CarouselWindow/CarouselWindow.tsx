@@ -61,12 +61,13 @@ const CarouselWindow = () => {
     const [tileContent, setTileContent] = useState(info);
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const carouselRef = useRef<HTMLDivElement>(null);
+    const childRef = useRef<any>(null);
 
-    // useEffect(() => {
-    //  if (carouselRef.current && carouselRef.current.lastChild) {
-    //     carouselRef.current.scrollLeft =
-    //       (carouselRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
-    //   }}, []);
+    useEffect(() => {
+      if (childRef.current && carouselRef.current){
+        const width = childRef.current.getWidth()
+        carouselRef.current.scrollLeft = (width +24) * 20
+       }}, []);
 
       function getPosition() {
         if (carouselRef.current) {
@@ -74,26 +75,23 @@ const CarouselWindow = () => {
         setScrollPosition(position);
       }}
 
-      // useEffect(() => {
-      //   if (carouselRef.current && carouselRef.current.lastChild ) {
-      //   const tileWidth: number =
-      //     carouselRef.current.lastChild.getBoundingClientRect().width + 24;
-      //   const carouselWidth: number =
-      //     (carouselRef.current.lastChild.getBoundingClientRect().width + 24) *
-      //     copyArray.length;
-        
-      //   if (
-      //     scrollPosition >= copyArray.length * 3 * tileWidth &&
-      //     scrollPosition % tileWidth === 0
-      //   ) {
-      //     carouselRef.current.scrollLeft = scrollPosition - carouselWidth;
-      //   } else if (
-      //     scrollPosition <= copyArray.length * tileWidth &&
-      //     scrollPosition % tileWidth === 0
-      //   ) {
-      //     carouselRef.current.scrollLeft = scrollPosition + carouselWidth;
-      //   }
-      // }}, [scrollPosition]);
+      useEffect(() => {
+        if (carouselRef.current && carouselRef.current ) {
+          const width = childRef.current.getWidth()
+          const tileWidth: number = width + 24;
+          const carouselWidth: number = tileWidth * copyArray.length;
+        if (
+          scrollPosition >= copyArray.length * 3 * tileWidth &&
+          scrollPosition % tileWidth === 0
+        ) {
+          carouselRef.current.scrollLeft = scrollPosition - carouselWidth;
+        } else if (
+          scrollPosition <= copyArray.length * tileWidth &&
+          scrollPosition % tileWidth === 0
+        ) {
+          carouselRef.current.scrollLeft = scrollPosition + carouselWidth;
+        }
+      }}, [scrollPosition]);
 
   return (
         <StyledCarouselWindow ref={carouselRef} 
@@ -101,6 +99,7 @@ const CarouselWindow = () => {
             {tileContent.map((item, index) => {
         return (
           <CarouselTile
+            ref={childRef}
             key={index}
             index={index}
             info={item}

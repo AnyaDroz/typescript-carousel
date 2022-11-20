@@ -1,16 +1,16 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle} from 'react'
+
 import {
   StyledTileContainer, 
   StyledEyebrowContainer, 
   StyledLabelContainer, 
-  StyledLabelName, 
   StyledImage, 
   StyledImageContainer, 
   StyledTitleContainer, 
   StyledHeader,
   StyledSubHeader,
-  // StyledSquiggle
 } from "./CarouselTile.styles"
+  import Squiggle from "../../images/squiggle.svg";
 
 type CarouselItem = {
   eyebrowOne: string
@@ -25,24 +25,32 @@ type CarouselProps = {
   info: CarouselItem
   index: number
   scrollPosition:number 
- 
+  ref: any
 }
 
-const CarouselTile = ({ info, index, scrollPosition }:CarouselProps) => {
+const CarouselTile = forwardRef(({ info, index, scrollPosition}:CarouselProps, ref) => {
   const [active, setActive] = useState<boolean>(false);
   const tileContainerRef = useRef<HTMLInputElement>(null);
   const gap:number = 24;
 
-  // useEffect(() => {
-  //   if (tileContainerRef.current) {
-  //   const width:number = tileContainerRef.current.getBoundingClientRect().width;
-  //   const isActive = index * (width + gap) === scrollPosition;
-  //   setActive(isActive);
-  // }}, [scrollPosition]);
-
+  useImperativeHandle(ref, ()=>({
+    getWidth()
+    {
+      if (tileContainerRef.current) {
+      const width:number = tileContainerRef.current.getBoundingClientRect().width;
+      return width;}
+    }
+  }))
+  
+useEffect(() => {
+    if (tileContainerRef.current) {
+    const width:number = tileContainerRef.current.getBoundingClientRect().width;
+    const isActive = index * (width + gap) === scrollPosition;
+    setActive(isActive);
+  }}, [scrollPosition]);
   return (
-
-<StyledTileContainer active={active} ref={tileContainerRef} style={{ marginRight: gap }} >
+<StyledTileContainer style={{ marginRight: gap }}
+ref={tileContainerRef}>
 <StyledEyebrowContainer>
   <div>
   {info.eyebrowOne}
@@ -52,15 +60,13 @@ const CarouselTile = ({ info, index, scrollPosition }:CarouselProps) => {
   </div> 
 </StyledEyebrowContainer>
   <StyledLabelContainer>
-     {/* <StyledSquiggle/> */}
-    <StyledLabelName>
+     <img src={Squiggle} alt="Squiggle"/>
       {info.label}
-    </StyledLabelName>
   </StyledLabelContainer>
-<StyledImageContainer>
+<StyledImageContainer active={active}>
     <StyledImage src={info.image} alt="Idlerocks" ></StyledImage>
 </StyledImageContainer>
-<StyledTitleContainer> 
+<StyledTitleContainer active={active}> 
   <StyledHeader> 
   {info.title}
   </StyledHeader>
@@ -70,6 +76,6 @@ const CarouselTile = ({ info, index, scrollPosition }:CarouselProps) => {
 </StyledTitleContainer>
 </StyledTileContainer>
   );
-};
+});
 
 export default CarouselTile;
